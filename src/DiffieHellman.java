@@ -6,13 +6,12 @@ import java.util.Set;
 
 public class DiffieHellman {
     public static void main(String[] args) {
-
         Scanner scan = new Scanner(System.in);
         BigInteger modulo = null, base = null;
 
-        while(true) {
+        while (true) {
             try {
-                System.out.println("\nEnter the prime number (modulo): ");
+                System.out.println("Enter the prime number (modulo): ");
                 modulo = new BigInteger(scan.next());
                 if (!isPrime(modulo)) {
                     System.out.println(modulo + " is not a prime number\nplease try again!");
@@ -25,8 +24,8 @@ public class DiffieHellman {
                     System.out.println(base + " is not a primitive root of " + modulo + "\nplease try again!");
                     continue;
                 }
-                
-            } catch(NumberFormatException e){
+
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid input\nplease try again!");
                 continue;
             }
@@ -41,12 +40,12 @@ public class DiffieHellman {
         BigInteger B = base.modPow(privateB, modulo);
         boolean ran = false;
 
-        while(true) {
-            System.out.println("\nEnter you choice:\n1-Generate shared key\n2-Find shared key (BONUS)\n3-Exit");
+        while (true) {
+            System.out.println("\nEnter you choice:\n1-Generate shared key\n2-Find shared key\n3-Exit");
             String choice = scan.next();
 
             long start = System.currentTimeMillis();
-            switch(choice) {
+            switch (choice) {
                 case "1":
                     ran = true;
                     System.out.println("\nGenerated private number of A: " + privateA);
@@ -62,7 +61,7 @@ public class DiffieHellman {
                     break;
 
                 case "2":
-                    if(!ran)
+                    if (!ran)
                         System.out.println("\nPlease run option 1 first before running this option");
                     else {
                         BigInteger sharedKey = B.modPow(getPow(modulo, base, A), modulo);
@@ -84,23 +83,14 @@ public class DiffieHellman {
         return number.isProbablePrime(20);
     }
 
-    /*private static boolean isPrime(long number) {
-        long sqrt = (long) Math.sqrt(number);
-        for(long i = 2; i < sqrt; i++) {
-            if(number % i == 0)
-                return false;
-        }
-        return true;
-    }*/
-
     private static boolean isPrimitiveRoot(BigInteger base, BigInteger modulo) {
-        if(!modulo.gcd(base).equals(BigInteger.ONE))
+        if (!modulo.gcd(base).equals(BigInteger.ONE))
             return false;
 
         BigInteger s = modulo.subtract(BigInteger.ONE);
         Set<BigInteger> factors = getPrimeFactors(s);
-        for(BigInteger factor : factors) {
-            if(base.modPow(s.divide(factor), modulo).equals(BigInteger.ONE)) {
+        for (BigInteger factor : factors) {
+            if (base.modPow(s.divide(factor), modulo).equals(BigInteger.ONE)) {
                 return false;
             }
         }
@@ -111,12 +101,12 @@ public class DiffieHellman {
         Set<BigInteger> factors = new HashSet<>();
 
         BigInteger two = new BigInteger("2");
-        for(BigInteger i = two; i.compareTo(number) < 1; i = i.add(BigInteger.ONE)) {
-            if(number.mod(i).equals(BigInteger.ZERO)) {
+        for (BigInteger i = two; i.compareTo(number) < 1; i = i.add(BigInteger.ONE)) {
+            if (number.mod(i).equals(BigInteger.ZERO)) {
                 factors.add(i);
                 while (number.mod(i).equals(BigInteger.ZERO)) {
                     number = number.divide(i);
-                    if(number.isProbablePrime(20)) {
+                    if (number.isProbablePrime(20)) {
                         factors.add(number);
                         return factors;
                     }
@@ -126,13 +116,12 @@ public class DiffieHellman {
         return factors;
     }
 
-    private static BigInteger getPow(BigInteger modulo, BigInteger base,BigInteger A){
+    private static BigInteger getPow(BigInteger modulo, BigInteger base, BigInteger A) {
         BigInteger falsePow = BigInteger.valueOf(-1);
         BigInteger i;
-        for(i = BigInteger.ONE; i.compareTo(modulo) < 1; i = i.add(BigInteger.ONE)){
-            if(base.modPow(i,modulo).equals(A)) return i;
+        for (i = BigInteger.ONE; i.compareTo(modulo) < 1; i = i.add(BigInteger.ONE)) {
+            if (base.modPow(i, modulo).equals(A)) return i;
         }
         return falsePow;
     }
-
 }
