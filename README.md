@@ -8,7 +8,7 @@ of the protocol.
 Alice and Bob wish to communicate secretly over a public network. The following is how they do it.
 
 1. They publicly agree to use a modulus `p = 23` (a prime number) and a base `g = 5` (which is a
-      <a href="https://en.wikipedia.org/wiki/Primitive_root_modulo_n">primitive root modulo</a> 23).
+      <a href="https://en.wikipedia.org/wiki/Primitive_root_modulo_n" target="_blank">primitive root modulo</a> 23).
 2. Alice chooses a secret integer `a = 4`, then sends Bob `gᵃ mod p`.
    - `A = 5⁴ mod 23 = 4`
 3. Bob chooses a secret integer `b = 3`, then sends Alice `gᵇ mod p`.
@@ -23,7 +23,7 @@ Alice and Bob wish to communicate secretly over a public network. The following 
 Alice computed `(gᵃ mod p)ᵇ mod p` and Bob computed `(gᵇ mod p)ᵃ mod p` which are equivalent.
 
 ## How is this secure?
-The encryption relies on the fact that the private numbers (`a` or `b`) can not be computed quickly, given only `g` and `p`, even by the fastest modern computers. Such a problem is called the <a href="https://en.wikipedia.org/wiki/Discrete_logarithm">discrete logarithm problem</a>.
+The encryption relies on the fact that the private numbers (`a` or `b`) can not be computed quickly, given only `g` and `p`, even by the fastest modern computers. Such a problem is called the <a href="https://en.wikipedia.org/wiki/Discrete_logarithm" target="_blank">discrete logarithm problem</a>.
 
 To make the given example more secure, larger values (600+ digits) of `a`, `b`, and `p` need to be chosen.
-<a href="http://compoasso.free.fr/primelistweb/page/prime/liste_online_en.php">Here is a list of prime numbers up to 1000 billion.</a> for you to try.
+<a href="http://compoasso.free.fr/primelistweb/page/prime/liste_online_en.php" target="_blank">Here is a list of prime numbers up to 1000 billion.</a> for you to try.
